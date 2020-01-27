@@ -62,67 +62,90 @@ La préparation des données vise à construire un tableau dans lequel : -
 variables qualitatives : le nombre des modalités est réduit à quelques
 modalités. - variables quantitatives discrétisées (ex :âge en classes
 d’âges). - individus : les lignes comportant des valeurs absentes ou
-abérrantes filtrées.
+aberrantes sont filtrées.
 
+``` r
 #### Variables calculées
 
-age =1911-R2 pb des années vide et ? -\> valeur.
+age
+=1911-R2
+pb des années vide 
+et ? -> valeur.
 
-\=SI(ESTNUM(R2);1911-R2;"")
+=SI(ESTNUM(R2);1911-R2;"")
 
 ATtention aux valuers abbérantes
 
+
 #### Regrouper les modalités d’une variable
 
-nationalité =\> limitrophe -non limitrophe (ninarisation)
+nationalité => limitrophe -non limitrophe (ninarisation)
 
-1 Tableau dynmaique pour lister les modalités 2. Copie =\> nelle feuille
-de calcul =\> nationalités. 3. Création colonne proxi et on renseigne à
-la main en minsucule par copié collé. 4 Création colonne :
-nationalite\_localisation 5. Recherche verticale :
-=RECHERCHEV(B2;$Feuille4.A\(2:\)Feuille4.B$39;2;0)
+1 Tableau dynmaique pour lister les modalités
+2. Copie => nelle feuille de calcul => nationalités.
+3. Création colonne proxi et on renseigne à la main en minsucule par copié collé.
+4 Création colonne : nationalite_localisation
+5. Recherche verticale : =RECHERCHEV(B2;$Feuille4.A$2:$Feuille4.B$39;2;0)
+
+
 
 ### Convertir un type de données en un autre
 
+
 ### Periode de déclaration
+c4_annee_declaration    periode
+=SI(N2<=1915;"av1gm";"1gm")
 
-c4\_annee\_declaration periode =SI(N2\<=1915;“av1gm”;“1gm”)
+#### Nombre d'enfants 
 
-#### Nombre d’enfants
+nombre d'enfants en enfants vrai / faux => binarisation. 
+=SI(NON(ESTVIDE(AL2)) ;"avec_enfants";"sans_enfants")
+Mieux :
+=SI(OU(ESTVIDE(AL2);
+AL2=0) ;"sans_enfants";"avec_enfants")
 
-nombre d’enfants en enfants vrai / faux =\> binarisation.
-=SI(NON(ESTVIDE(AL2)) ;“avec\_enfants”;“sans\_enfants”) Mieux :
-=SI(OU(ESTVIDE(AL2); AL2=0) ;“sans\_enfants”;“avec\_enfants”)
 
-\=SI(N2\<=1915;“av1gm”;“1gm”)
+=SI(N2<=1915;"av1gm";"1gm")
 
 ### Combiner plusieurs variables
 
 nom et nationalité
 
-#### renommage variables
+#### renommage variables 
 
-situation\_matrimoniale
+situation_matrimoniale
+```
+
+## L’ACM dans R
 
 ``` r
-library("FactoMineR")
-library("factoextra")
-library(explor)
+library(FactoMineR) # analyse exploratoire des donnees multivariées.
+library(explor)     # visualisation interactive de l'ACM.
+library(dplyr)      # manipulation des  données.
+library(readr)      # lecture des fichiers csv
 
-library(dplyr)
-
-library(readr)
 dataset_acm0 <- read_csv("etr_acm.csv")
 
+# Préparation des données 
 dataset_acm1 <- dataset_acm0 %>%
   distinct(nom_nat, .keep_all = TRUE) %>%
   mutate(age=cut(age, 2)) %>% 
   select(-prof_manoeuvre) 
 
+# Visualisation du tableau brut 
 View(dataset_acm1)
 
+# ACM
 acm1 <- MCA(dataset_acm1[-c(1:4)])
 
-
+# Visualisation interactive
 explor(acm1)
 ```
+
+![GitHub Logo](images/var-axe1.PNG) ![GitHub Logo](images/var-axe2.PNG)
+
+![GitHub Logo](images/explor_ind.svg)
+
+![GitHub Logo](images/explor_var.svg)
+
+![GitHub Logo](images/explor_ind.svg)

@@ -1,4 +1,4 @@
-Anamyse ne composantes multiples
+Analyse en composantes multiples
 ================
 
 # Introduction à l’ACM
@@ -87,7 +87,7 @@ explor(acm1)                               # visualisation interactive de l'ACM
 
 ![GitHub Logo](images/explor_ind.svg)
 
-  - Si deux individus prennent les même modalités : distance = 0.
+  - Si deux individus prennent les mêmes modalités : distance = 0.
   - Si deux individus prennent une majorité de modalités en commun :
     distance = petite.
   - Si deux individus prennent les même modalités sauf un qui possède
@@ -104,8 +104,22 @@ explor(acm1)                               # visualisation interactive de l'ACM
 ![GitHub Logo](images/explor_var.svg)
 
 les modalités proches du centre sont les plus fréquentes, les modalités
-les plus éloignées sont les plus rares.
+les plus éloignées sont les plus rares. Les modalités proches traduisent
+des associations.
 
 ### Modalité et construction des axes
+
+Le repère, appelé plan factoriel est construit par un axe 1 (horizontal)
+et un axe 2 (vertical). Les axes traduisent des oppositions de
+modalités.
+
+situation\_matrimoniale mar 1.173 27.80 0.666 187 enfants avec\_enfants
+1.351 27.25 0.579 138
+
+La modalité « mar » de la variable “situation\_matrimoniale” se situe du
+côté positif de l’axe 1 (coordonnée positive), les individus mariés sont
+donc biens représentés du côté positif de l’axe 1. Ils ont par ailleurs
+plus de chance d’avoir comme modalité « avec enfants » de la variable
+“enfants”.
 
 ![GitHub Logo](images/var-axe1.PNG) ![GitHub Logo](images/var-axe2.PNG)

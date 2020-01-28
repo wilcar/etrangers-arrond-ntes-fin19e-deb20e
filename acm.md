@@ -46,16 +46,6 @@ associations entre leurs modalités. Par exemple, les variables statut
 matrimonial et enfants sont liées : les personnes qui sont mariées ont
 plutôt des enfants.
 
-``` r
-- L'ACM va extraire les principales dimensions de variabilité. Dimension: jeunes / vieux. 1ErGM / av GM...
-- On s'interresse à la liaison des modalités  qu'on appele également asosciations ou correlation. (en relation avec les modalités).
-Modalités fréquentes, quelles sont les modalités rares ?
-
-### 
-
-- l'ACM va construire des variables synthétiques qui résument au mieux les variables.
-```
-
 ## Préparations des données
 
 La préparation des données vise à construire un tableau dans lequel : -
@@ -64,88 +54,58 @@ modalités. - variables quantitatives discrétisées (ex :âge en classes
 d’âges). - individus : les lignes comportant des valeurs absentes ou
 aberrantes sont filtrées.
 
-``` r
-#### Variables calculées
-
-age
-=1911-R2
-pb des années vide 
-et ? -> valeur.
-
-=SI(ESTNUM(R2);1911-R2;"")
-
-ATtention aux valuers abbérantes
-
-
-#### Regrouper les modalités d’une variable
-
-nationalité => limitrophe -non limitrophe (ninarisation)
-
-1 Tableau dynmaique pour lister les modalités
-2. Copie => nelle feuille de calcul => nationalités.
-3. Création colonne proxi et on renseigne à la main en minsucule par copié collé.
-4 Création colonne : nationalite_localisation
-5. Recherche verticale : =RECHERCHEV(B2;$Feuille4.A$2:$Feuille4.B$39;2;0)
-
-
-
-### Convertir un type de données en un autre
-
-
-### Periode de déclaration
-c4_annee_declaration    periode
-=SI(N2<=1915;"av1gm";"1gm")
-
-#### Nombre d'enfants 
-
-nombre d'enfants en enfants vrai / faux => binarisation. 
-=SI(NON(ESTVIDE(AL2)) ;"avec_enfants";"sans_enfants")
-Mieux :
-=SI(OU(ESTVIDE(AL2);
-AL2=0) ;"sans_enfants";"avec_enfants")
-
-
-=SI(N2<=1915;"av1gm";"1gm")
-
-### Combiner plusieurs variables
-
-nom et nationalité
-
-#### renommage variables 
-
-situation_matrimoniale
-```
-
 ## L’ACM dans R
 
 ``` r
-library(FactoMineR) # analyse exploratoire des donnees multivariées.
-library(explor)     # visualisation interactive de l'ACM.
-library(dplyr)      # manipulation des  données.
-library(readr)      # lecture des fichiers csv
+# Packages
+library(FactoMineR)                        # analyse exploratoire des donnees multivariées
+library(explor)                            # visualisation interactive de l'ACM
+library(dplyr)                             # manipulation des  données
+library(readr)                             # lecture des fichiers csv
 
-dataset_acm0 <- read_csv("etr_acm.csv")
+dataset_acm0 <- read_csv("etr_acm.csv")    # lecture du fichier etr_acm.csv
 
 # Préparation des données 
 dataset_acm1 <- dataset_acm0 %>%
-  distinct(nom_nat, .keep_all = TRUE) %>%
-  mutate(age=cut(age, 2)) %>% 
-  select(-prof_manoeuvre) 
+  distinct(nom_nat, .keep_all = TRUE) %>%  # supression des doublons
+  mutate(age=cut(age, 2)) %>%              # la variable age est discrétisée en deux intervalles égaux
+  select(-prof_manoeuvre)                  # la variable manoeuvre est exclue de l'ACM. 
 
-# Visualisation du tableau brut 
+# visualisation du tableau brut 
 View(dataset_acm1)
 
 # ACM
-acm1 <- MCA(dataset_acm1[-c(1:4)])
+acm1 <- MCA(dataset_acm1[-c(1:4)])         # acm (avec exclusion des variables 1 à 4).
 
 # Visualisation interactive
-explor(acm1)
+explor(acm1)                               # visualisation interactive de l'ACM
 ```
 
-![GitHub Logo](images/var-axe1.PNG) ![GitHub Logo](images/var-axe2.PNG)
+## Interprétation
+
+### Individus
 
 ![GitHub Logo](images/explor_ind.svg)
+
+  - Si deux individus prennent les même modalités : distance = 0.
+  - Si deux individus prennent une majorité de modalités en commun :
+    distance = petite.
+  - Si deux individus prennent les même modalités sauf un qui possède
+    une rare : distance grande.
+  - Si deux individus ont en commun une modalité rare : distante petite.
+  - Un individu est d’autant plus loin de l’origine qu’il possède des
+    modalités rares.
+  - Un individu proche de l’origine possède des modalités fréquentes.
+
+## Modalités
+
+### Modalité et origine des axes
 
 ![GitHub Logo](images/explor_var.svg)
 
-![GitHub Logo](images/explor_ind.svg)
+les modalités proches du centre sont les plus fréquentes, les modalités
+les plus éloignées sont les plus rares.
+
+### Modalité et construction des axes
+
+![GitHub Logo](images/var-axe1.PNG) ![GitHub Logo](images/var-axe2.PNG)

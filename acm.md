@@ -1,4 +1,4 @@
-Analyse en composantes multiples
+Introduction à l’analyse en composantes multiples
 ================
 
 # Introduction à l’ACM
@@ -21,16 +21,16 @@ appelées des modalités.
     ## # A tibble: 10 x 6
     ##    id_individu nationalite_localisation periode sexe  age       dernier_domicile
     ##          <dbl> <fct>                    <fct>   <fct> <fct>     <fct>           
-    ##  1           1 nat: nonlimit            1gm     h     (44,70.1] fr              
-    ##  2           2 nat: nonlimit            1gm     h     (44,70.1] fr              
-    ##  3           3 nat: nonlimit            av1gm   h     (44,70.1] fr              
-    ##  4           4 nat: nonlimit            1gm     f     (44,70.1] fr              
-    ##  5           5 nat: nonlimit            1gm     h     (44,70.1] etr             
-    ##  6           6 nat: nonlimit            av1gm   h     (44,70.1] etr             
-    ##  7           7 nat: nonlimit            av1gm   h     (44,70.1] etr             
-    ##  8           8 nat: nonlimit            1gm     h     (17.9,44] etr             
-    ##  9           9 nat: limitrophe          av1gm   f     (17.9,44] alslor          
-    ## 10          10 nat: limitrophe          1gm     h     (44,70.1] alslor
+    ##  1           1 nat: espagnol            1gm     h     (44,70.1] fr              
+    ##  2           2 nat: espagnol            1gm     h     (44,70.1] fr              
+    ##  3           3 nat: espagnol            av1gm   h     (44,70.1] fr              
+    ##  4           4 nat: espagnol            1gm     f     (44,70.1] fr              
+    ##  5           5 nat: espagnol            1gm     h     (44,70.1] etr             
+    ##  6           6 nat: espagnol            av1gm   h     (44,70.1] etr             
+    ##  7           7 nat: espagnol            av1gm   h     (44,70.1] etr             
+    ##  8           8 nat: espagnol            1gm     h     (17.9,44] etr             
+    ##  9           9 nat: allemand            av1gm   f     (17.9,44] alslor          
+    ## 10          10 nat: allemand            1gm     h     (44,70.1] alslor
 
 ## Interpétation
 
@@ -78,6 +78,12 @@ plot(res, invisible=c("ind","quali.sup"), autoLab="y", cex=0.7,title="Modalités
 
 ![](acm_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
+``` r
+plot(res, cex=0.7)
+```
+
+![](acm_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+
 ## Préparations des données
 
 La préparation des données vise à construire un tableau dans lequel : -
@@ -100,8 +106,8 @@ dataset_acm0 <- read_csv("etr_acm.csv")    # lecture du fichier etr_acm.csv
 # Préparation des données 
 dataset_acm1 <- dataset_acm0 %>%
   distinct(nom_nat, .keep_all = TRUE) %>%  # supression des doublons
-  mutate(age=cut(age, 2)) %>%              # la variable age est discrétisée en deux intervalles égaux
-  select(-prof_manoeuvre)                  # la variable manoeuvre est exclue de l'ACM. 
+  mutate(age=cut(age, 2))                  # la variable age est discrétisée en deux intervalles égaux
+
 
 # visualisation du tableau brut 
 View(dataset_acm1)

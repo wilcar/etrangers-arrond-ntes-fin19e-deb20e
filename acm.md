@@ -87,10 +87,10 @@ plot(res, cex=0.7)
 ## Préparations des données
 
 La préparation des données vise à construire un tableau dans lequel : -
-variables qualitatives : le nombre des modalités est réduit à quelques
-modalités. - variables quantitatives discrétisées (ex :âge en classes
-d’âges). - individus : les lignes comportant des valeurs absentes ou
-aberrantes sont filtrées.
+Le nombre des modalités des variables qualitatives est réduit à quelques
+modalités. - Les variables quantitatives sont discrétisées comme par
+exemple les âge transformés en classes d’âges. - Les lignes comportant
+des valeurs absentes ou aberrantes sont filtrées.
 
 ## L’ACM dans R
 

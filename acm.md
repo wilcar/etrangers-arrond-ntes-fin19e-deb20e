@@ -67,7 +67,7 @@ out <- plot(res, invisible=c("var","quali.sup"), cex=0.7)
 print(out)
 ```
 
-![](acm_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+![](acm_files/figure-gfm/unnamed-chunk-5-1.jpeg)<!-- -->
 
 ### Etudes des variables
 
@@ -78,13 +78,13 @@ les plus éloignées sont les plus rares.
 plot(res, invisible=c("ind","quali.sup"), autoLab="y", cex=0.7,title="Modalités actives")
 ```
 
-![](acm_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+![](acm_files/figure-gfm/unnamed-chunk-6-1.jpeg)<!-- -->
 
 ``` r
 plot(res, cex=0.7)
 ```
 
-![](acm_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](acm_files/figure-gfm/unnamed-chunk-7-1.jpeg)<!-- -->
 
 ## Préparations des données
 

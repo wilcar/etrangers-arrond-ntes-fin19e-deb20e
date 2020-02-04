@@ -62,7 +62,9 @@ res <- MCA(etr_acm_demo[-c(1)], graph = FALSE)
 ```
 
 ``` r
-plot(res, invisible=c("var","quali.sup"), cex=0.7)
+out <- plot(res, invisible=c("var","quali.sup"), cex=0.7)
+
+print(out)
 ```
 
 ![](acm_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->

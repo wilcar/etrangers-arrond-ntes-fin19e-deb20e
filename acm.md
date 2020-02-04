@@ -62,12 +62,10 @@ res <- MCA(etr_acm_demo[-c(1)], graph = FALSE)
 ```
 
 ``` r
-out <- plot(res, invisible=c("var","quali.sup"), cex=0.7)
-
-print(out)
+plot(res, invisible=c("var","quali.sup"), cex=0.7)
 ```
 
-![](acm_files/figure-gfm/unnamed-chunk-5-1.jpeg)<!-- -->
+![](acm_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
 
 ### Etudes des variables
 
@@ -78,13 +76,13 @@ les plus éloignées sont les plus rares.
 plot(res, invisible=c("ind","quali.sup"), autoLab="y", cex=0.7,title="Modalités actives")
 ```
 
-![](acm_files/figure-gfm/unnamed-chunk-6-1.jpeg)<!-- -->
+![](acm_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
 
 ``` r
 plot(res, cex=0.7)
 ```
 
-![](acm_files/figure-gfm/unnamed-chunk-7-1.jpeg)<!-- -->
+![](acm_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
 
 ## Préparations des données
 

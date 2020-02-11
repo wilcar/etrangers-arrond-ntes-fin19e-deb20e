@@ -1,20 +1,20 @@
 Introduction à l’analyse en composantes multiples
 ================
 
-# Introduction à l’ACM
-
-## Sur quelles données porte une ACM ?
-
-L’ACM consiste à synthétiser de manière géométrique à l’aide de nuages
-de points des tableaux présentant, en ligne, des individus décrits en
+L’ACM consiste à synthétiser de manière géométrique, à l’aide de nuages
+de points, des tableaux présentant, en ligne, des individus décrits en
 colonne par des variables qualitatives, c’est-à-dire des informations
 sur ces individus qui ne prennent qu’un nombre limité de valeurs
 appelées des modalités.
 
+# Exemple introductif
+
+## Exemple de tableau brut
+
 :bulb: Il faut bien distinguer :
 
-  - Une variable qualitative : exemple : periode.  
-  - Une modalité (ou valeur): ex : 1gm.
+  - Une variable qualitative. Exemple : période chronologique.
+  - Une modalité (ou valeur). Exemple : première guerre mondiale.
 
 <!-- end list -->
 
@@ -38,6 +38,12 @@ L’ACM débute par l’étude des individus puis l’études des variables.
 
 ### Etude des individus
 
+``` r
+plot(res, invisible=c("var","quali.sup"), cex=0.7)
+```
+
+![](acm_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+
 L’ACM vise à étudier la variablilité des individus. Est ce que des
 indivus se ressemblent (individus possédant de nombreux modalités en
 commun) ? Est ce que des individus sont différents (individus avec peu
@@ -45,97 +51,115 @@ de modalités en commun) ? L’ensemble des ressemblances / différences
 entre les individus est appelée la variabilité des individus. Si tous
 les individus sont similaires l’analyse est inutile.
 
-  - Si deux individus prennent les mêmes modalités : distance = 0.
-  - Si deux individus prennent une majorité de modalités en commun :
-    distance = petite.
+  - Si deux individus prennent les mêmes modalités, la distance sur le
+    plan est de 0 et les points se confondent.
+  - Si deux individus prennent une majorité de modalités en commun, la
+    distance qui les sépare est petite.
   - Si deux individus prennent les même modalités sauf un qui possède
-    une rare : distance grande.
-  - Si deux individus ont en commun une modalité rare : distante petite.
+    une modalité rare, la distance est grande.
+  - Si deux individus ont en commun une modalité rare, la distance qui
+    les sépare est petite.
   - Un individu est d’autant plus loin de l’origine qu’il possède des
     modalités rares.
-  - Un individu proche de l’origine possède des modalités fréquentes.
-
-<!-- end list -->
-
-``` r
-res <- MCA(etr_acm_demo[-c(1)], graph = FALSE)  
-```
-
-``` r
-plot(res, invisible=c("var","quali.sup"), cex=0.7)
-```
-
-![](acm_files/figure-gfm/unnamed-chunk-5-1.png)<!-- -->
+  - Un individu proche de l’origine qu’il possède des modalités
+    fréquentes.
 
 ### Etudes des variables
 
-Les modalités proches du centre sont les plus fréquentes, les modalités
-les plus éloignées sont les plus rares.
-
 ``` r
-plot(res, invisible=c("ind","quali.sup"), autoLab="y", cex=0.7,title="Modalités actives")
+plot(res, invisible=c("ind","quali.sup"), autoLab="y", cex=0.7)
 ```
 
 ![](acm_files/figure-gfm/unnamed-chunk-6-1.png)<!-- -->
+
+Les modalités proches du centre sont les plus fréquentes, les modalités
+les plus éloignées sont les plus rares. Les modalités proches les unes
+des autres sont corrélées.
+
+## Biplot
 
 ``` r
 plot(res, cex=0.7)
 ```
 
-![](acm_files/figure-gfm/unnamed-chunk-7-1.png)<!-- -->
+![](acm_files/figure-gfm/unnamed-chunk-8-1.png)<!-- -->
+
+# Analyse à partir d’un tableau brut réel
 
 ## Préparations des données
 
-La préparation des données vise à construire un tableau dans lequel : -
-Le nombre des modalités des variables qualitatives est réduit à quelques
-modalités. - Les variables quantitatives sont discrétisées comme par
-exemple les âge transformés en classes d’âges. - Les lignes comportant
-des valeurs absentes ou aberrantes sont filtrées.
+### La préparation des données vise à construire un tableau dans lequel :
+
+  - Le nombre des modalités des variables qualitatives est réduit à
+    quelques modalités (elle sont souvent dichotomées).
+  - Les variables quantitatives sont discrétisées comme par exemple les
+    âges transformés en classes d’âges.
+  - Les lignes comportant des valeurs absentes ou aberrantes sont
+    filtrées.
 
 ## L’ACM dans R
 
+  - Vous utiliserez l’IDE RStudio. Vous devez créer un nouveau projet
+    (panneau *project*) appelé `acm_etr` pour gérer la résolution du
+    chemin de lecture du fichier de données `etr_acm.csv`
+  - vous téléchargerez le fichier `etr_acm.csv` dans votre dossier de
+    projet.
+  - Le programme fait appel aux packages `FactoMineR`, `explor`, `dplyr`
+    et `readr`qui doivent être installés au préalable. Vous devez donc
+    vérifiez leur présence et les installer le cas échéant (panneau
+    *packages* de RStudio).
+  - La première partie du programme charge les packages à l’aide de la
+    fonction `library`. Le fichier de données au format csv est lu à
+    partir du répertoire de travail.
+  - Une ultime préparation des données est ensuite réalisée
+    (dédoublonnage des individus, discrétisages des âges en deux
+    groupes)
+  - L’ACM est ensuite réalisée.
+  - L’exploration visuelle s’effectue enfin à l’aide des fonctions
+    `View` et `explor`.
+
+<!-- end list -->
+
 ``` r
-# Packages
-library(FactoMineR)                        # analyse exploratoire des donnees multivariées
-library(explor)                            # visualisation interactive de l'ACM
-library(dplyr)                             # manipulation des  données
-library(readr)                             # lecture des fichiers csv
+#
+library(FactoMineR)                       
+library(explor)                            
+library(dplyr)                           
+library(readr)                            
 
-dataset_acm0 <- read_csv("etr_acm.csv")    # lecture du fichier etr_acm.csv
+# 
+dataset_acm0 <- read_csv("etr_acm.csv")   
 
-# Préparation des données 
+#  
 dataset_acm1 <- dataset_acm0 %>%
-  distinct(nom_nat, .keep_all = TRUE) %>%  # supression des doublons
-  mutate(age=cut(age, 2))                  # la variable age est discrétisée en deux intervalles égaux
+  distinct(nom_nat, .keep_all = TRUE) %>% 
+  mutate(age=cut(age, 2))                  
+# 
+acm1 <- MCA(dataset_acm1[-c(1:4)], graph = FALSE)         
+```
 
-
-# visualisation du tableau brut 
+``` r
 View(dataset_acm1)
-
-# ACM
-acm1 <- MCA(dataset_acm1[-c(1:4)])         # acm (avec exclusion des variables 1 à 4).
-
-# Visualisation interactive
-explor(acm1)                               # visualisation interactive de l'ACM
+explor(acm1) 
 ```
 
 ## Interprétation
 
 ### Individus
 
-![GitHub Logo](images/explor_ind.svg)
+``` r
+plot(acm1, invisible=c("var","quali.sup"), cex=0.7)
+```
 
-## Modalités
-
-### Modalité et origine des axes
-
-![GitHub Logo](images/explor_var.svg)
-
-les modalités proches du centre sont les plus fréquentes, les modalités
-les plus éloignées sont les plus rares. Les modalités proches traduisent
-des associations.
+![](acm_files/figure-gfm/unnamed-chunk-12-1.png)<!-- -->
 
 ### Modalité et construction des axes
+
+``` r
+plot(res, invisible=c("ind","quali.sup"), autoLab="y", cex=0.7)
+```
+
+![](acm_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 Le repère, appelé plan factoriel est construit par un axe 1 (horizontal)
 et un axe 2 (vertical). Les axes traduisent des oppositions de
@@ -147,10 +171,14 @@ La modalité « mar » de la variable “situation\_matrimoniale” se situe du
 côté positif de l’axe 1 (coordonnée positive), les individus mariés sont
 donc biens représentés du côté positif de l’axe 1. Ils ont par ailleurs
 plus de chance d’avoir comme modalité « avec enfants » de la variable
-“enfants”. Ainsi on peut déduire que le le côté positif de l’axe 1
-représente bien les individus mariés avec efants.
+“enfants”. Ainsi on peut déduire que le côté positif de l’axe 1
+représente bien les individus mariés avec enfants.
 
 :bulb: On relève les deux premières variables de chaque axe pour
 traduire les principales oppositions.
 
 ![GitHub Logo](images/var-axe1.PNG) ![GitHub Logo](images/var-axe2.PNG)
+
+# Références
+
+<https://quanti.hypotheses.org/930>

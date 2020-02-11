@@ -156,23 +156,21 @@ plot(acm1, invisible=c("var","quali.sup"), cex=0.7)
 ### Modalité et construction des axes
 
 ``` r
-plot(res, invisible=c("ind","quali.sup"), autoLab="y", cex=0.7)
+plot(acm1, invisible=c("ind","quali.sup"), autoLab="y", cex=0.7)
 ```
 
 ![](acm_files/figure-gfm/unnamed-chunk-13-1.png)<!-- -->
 
 Le repère, appelé plan factoriel est construit par un axe 1 (horizontal)
 et un axe 2 (vertical). Les axes traduisent des oppositions de
-modalités.
+modalités. L’ analyse des contributions des modalités actives montre
+que le premier axe oppose dans l’ensemble les individus mariés aux
+non-mariés, les individus agés de 38 à 58 ans sont biens représentés du
+côté positif de l’axe 1. Ils ont par ailleurs plus de chance d’être
+mariés et d’avoir des enfants.
 
-Exemple :
-
-La modalité « mar » de la variable “situation\_matrimoniale” se situe du
-côté positif de l’axe 1 (coordonnée positive), les individus mariés sont
-donc biens représentés du côté positif de l’axe 1. Ils ont par ailleurs
-plus de chance d’avoir comme modalité « avec enfants » de la variable
-“enfants”. Ainsi on peut déduire que le côté positif de l’axe 1
-représente bien les individus mariés avec enfants.
+Le deuxième facteur, représenté par l’axe des ordonnées, oppose plutôt
+deux catégories : les nationalités limitrophes et non-limitrophes.
 
 :bulb: On relève les deux premières variables de chaque axe pour
 traduire les principales oppositions.

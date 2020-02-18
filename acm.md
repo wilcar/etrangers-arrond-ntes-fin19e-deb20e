@@ -61,8 +61,8 @@ les individus sont similaires l’analyse est inutile.
     les sépare est petite.
   - Un individu est d’autant plus loin de l’origine qu’il possède des
     modalités rares.
-  - Un individu proche de l’origine qu’il possède des modalités
-    fréquentes.
+  - Un individu est d’autant plus proche de l’origine qu’il possède des
+    modalités fréquentes.
 
 ### Etudes des variables
 
